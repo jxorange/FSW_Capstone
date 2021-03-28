@@ -34,7 +34,6 @@ def create_app(test_config=None):
 
 
     @app.route("/movies", methods=['GET'])
-    # @cross_origin()
     def get_movies():
         movies = Movie.query.all()
 
