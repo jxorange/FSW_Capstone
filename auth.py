@@ -7,15 +7,13 @@ from urllib.request import urlopen
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
 
-AUTH0_DOMAIN = 'fsw-final.us.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'myapp'
+# AUTH0_DOMAIN = 'fsw-final.us.auth0.com'
+# ALGORITHMS = ['RS256']
+# API_AUDIENCE = 'myapp'
 
-
-
-# AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
-# ALGORITHMS = os.environ['ALGORITHMS']
-# API_AUDIENCE = os.environ['API_AUDIENCE']
+AUTH0_DOMAIN = os.environ['AUTH0_DOMAIN']
+ALGORITHMS = os.environ['ALGORITHMS']
+API_AUDIENCE = os.environ['API_AUDIENCE']
 
 class AuthError(Exception):
     def __init__(self, error, status_code):
