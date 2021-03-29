@@ -23,7 +23,7 @@ flask run
 
 # Authentication
 This app uses Auth0 as Authentication provider.
-- LoginLink: 
+- LoginLink: https://fsw-final.us.auth0.com/authorize?audience=myapp&response_type=token&client_id=AEznY1DMZyVH60GCqSUKvdscz53ajIL8&redirect_uri=https://fsw-capstone.herokuapp.com/
 
 The Logininformation to update the JWT are as follows:
 - CastingDirector@email.com / CastingDirector@email.com 
