@@ -3,7 +3,8 @@ from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-database_path = 'postgresql://jxorange@localhost:5432/casting'
+# database_path = 'postgresql://jxorange@localhost:5432/casting'
+database_path = os.environ['DATABASE_URL']
 db = SQLAlchemy()
 
 '''
