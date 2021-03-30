@@ -36,35 +36,35 @@ class CastingAgency(unittest.TestCase):
 
     def test_get_Actors(self):
         res = self.client().get('/Actors', headers={
-            "Authorization": 'bearer '+self.token_assistant})
+            "Authorization": 'bearer ' + self.token_assistant})
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(body['success'], True)
 
     def test_404_wrong_endpoint_get_Actors(self):
         res = self.client().get('/Actorss', headers={
-            "Authorization": 'bearer '+self.token_assistant})
+            "Authorization": 'bearer ' + self.token_assistant})
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(body['success'], False)
 
     def test_get_Movies(self):
         res = self.client().get('/Movies', headers={
-            "Authorization": 'bearer '+self.token_assistant})
+            "Authorization": 'bearer ' + self.token_assistant})
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(body['success'], True)
 
     def test_404_wrong_endpoint_get_Movies(self):
         res = self.client().get('/Movi', headers={
-            "Authorization": 'bearer '+self.token_assistant})
+            "Authorization": 'bearer ' + self.token_assistant})
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(body['success'], False)
 
     def test_delete_Actor(self):
         res = self.client().delete('/Actors/1', headers={
-            "Authorization": 'bearer '+self.token_producer})
+            "Authorization": 'bearer ' + self.token_producer})
         body = json.loads(res.data)
         ques = Actor.query.filter_by(id=1).one_or_none()
         self.assertEqual(res.status_code, 200)
@@ -73,21 +73,21 @@ class CastingAgency(unittest.TestCase):
 
     def test_422_Wrong_ID_delete_Actor(self):
         res = self.client().delete('/Actors/1000', headers={
-            "Authorization": 'bearer '+self.token_producer})
+            "Authorization": 'bearer ' + self.token_producer})
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(body['success'], False)
 
     def test_401_Unauthorized_Permission_delete_Actor(self):
         res = self.client().delete('/Actors/1', headers={
-            "Authorization": 'bearer '+self.token_assistant})
+            "Authorization": 'bearer ' + self.token_assistant})
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 401)
         self.assertEqual(body['success'], False)
 
     def test_delete_Movie(self):
         res = self.client().delete('Movies/1', headers={
-            "Authorization": 'bearer '+self.token_producer})
+            "Authorization": 'bearer ' + self.token_producer})
         body = json.loads(res.data)
         ques = Movie.query.filter_by(id=1).one_or_none()
         self.assertEqual(res.status_code, 200)
@@ -96,14 +96,14 @@ class CastingAgency(unittest.TestCase):
 
     def test_422_Wrong_ID_delete_Movies(self):
         res = self.client().delete('/Movies/1000', headers={
-            "Authorization": 'bearer '+self.token_producer})
+            "Authorization": 'bearer ' + self.token_producer})
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 422)
         self.assertEqual(body['success'], False)
 
     def test_Unauthorized_Permission_delete_Movies(self):
         res = self.client().delete('/Movies/1', headers={
-            "Authorization": 'bearer '+self.token_assistant})
+            "Authorization": 'bearer ' + self.token_assistant})
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 401)
         self.assertEqual(body['success'], False)
@@ -115,8 +115,8 @@ class CastingAgency(unittest.TestCase):
                 "name": "Test Name",
                 "age": 34,
                 "gender": 'M'},
-            headers={"Authorization": 'bearer '+self.token_director}
-            )
+            headers={"Authorization": 'bearer ' + self.token_director}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(body['success'], True)
@@ -128,8 +128,8 @@ class CastingAgency(unittest.TestCase):
                 "name": "Test Name",
                 "age": 34,
                 "gender": 'M'},
-            headers={"Authorization": 'bearer '+self.token_director}
-            )
+            headers={"Authorization": 'bearer ' + self.token_director}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(body['success'], False)
@@ -141,8 +141,8 @@ class CastingAgency(unittest.TestCase):
                 "name": "Test Name",
                 "age": 34,
                 "gender": 'M'},
-            headers={"Authorization": 'bearer '+self.token_assistant}
-            )
+            headers={"Authorization": 'bearer ' + self.token_assistant}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 401)
         self.assertEqual(body['success'], False)
@@ -153,8 +153,8 @@ class CastingAgency(unittest.TestCase):
             json={
                 "name": "Universe",
                 "release": "2010-10-13"},
-            headers={"Authorization": 'bearer '+self.token_producer}
-            )
+            headers={"Authorization": 'bearer ' + self.token_producer}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(body['success'], True)
@@ -165,8 +165,8 @@ class CastingAgency(unittest.TestCase):
             json={
                 "name": "Universe",
                 "release": "2010-10-13"},
-            headers={"Authorization": 'bearer '+self.token_producer}
-            )
+            headers={"Authorization": 'bearer ' + self.token_producer}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(body['success'], False)
@@ -177,8 +177,8 @@ class CastingAgency(unittest.TestCase):
             json={
                 "name": "Universe",
                 "release": "2010-10-13"},
-            headers={"Authorization": 'bearer '+self.token_assistant}
-            )
+            headers={"Authorization": 'bearer ' + self.token_assistant}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 401)
         self.assertEqual(body['success'], False)
@@ -190,8 +190,8 @@ class CastingAgency(unittest.TestCase):
                 "id": 2,
                 "name": "updateMovie",
                 "release": "2020-10-13"},
-            headers={"Authorization": 'bearer '+self.token_producer}
-            )
+            headers={"Authorization": 'bearer ' + self.token_producer}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(body['success'], True)
@@ -203,8 +203,8 @@ class CastingAgency(unittest.TestCase):
                 "id": 1000,
                 "name": "updateMovie",
                 "release": "2020-10-13"},
-            headers={"Authorization": 'bearer '+self.token_producer}
-            )
+            headers={"Authorization": 'bearer ' + self.token_producer}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(body['success'], False)
@@ -216,8 +216,8 @@ class CastingAgency(unittest.TestCase):
                 "id": 1000,
                 "name": "updateMovie",
                 "release": "2020-10-13"},
-            headers={"Authorization": 'bearer '+self.token_assistant}
-            )
+            headers={"Authorization": 'bearer ' + self.token_assistant}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 401)
         self.assertEqual(body['success'], False)
@@ -230,9 +230,9 @@ class CastingAgency(unittest.TestCase):
                 "gender": 'F',
                 "id": 3,
                 "name": "Updated Name",
-                },
-            headers={"Authorization": 'bearer '+self.token_producer}
-            )
+            },
+            headers={"Authorization": 'bearer ' + self.token_producer}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
         self.assertEqual(body['success'], True)
@@ -246,8 +246,8 @@ class CastingAgency(unittest.TestCase):
                 "id": 1000,
                 "name": "Updated Name",
             },
-            headers={"Authorization": 'bearer '+self.token_producer}
-            )
+            headers={"Authorization": 'bearer ' + self.token_producer}
+        )
         body = json.loads(res.data)
         self.assertEqual(res.status_code, 404)
         self.assertEqual(body['success'], False)

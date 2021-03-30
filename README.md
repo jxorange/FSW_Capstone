@@ -1,7 +1,17 @@
 # CastingAgency
-Udacity Full Stack Developer Course Final Project
+This project is backend web application following Udacity Fullstack Developer Nanodegree guidelines. It's a web app for a casting agency where users can add movies, actors, and relate each actor to the movies he/she acted in, and vice versa. This project uses python, flask and postgresql for it's backend and hosted on heruko.
 
-This API lets Casting Assistants, Casting Directors, Executive Producers read, add, change and delete movies and actors.
+All backend code follows PEP8 style guidelines.
+As of now, there is no frontend for this app. You can test it using cURL or Postman.
+This app is deployed on heroku under this link.
+
+
+# Pre-requisites and Local Development
+- Python 3.7
+- Virtual Environment
+- PIP Dependencies
+- Flask
+- SQLAlchemy and Flask-SQLAlchemy
 
 # Heroku
 The App is deployed on Heroku on the following link:https://fsw-capstone.herokuapp.com/
@@ -9,7 +19,7 @@ The App is deployed on Heroku on the following link:https://fsw-capstone.herokua
 # Backend
 Once you have your virtual environment setup and running, install dependencies by running:
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 This will install all of the required packages we selected within the requirements.txt file.
 
@@ -81,10 +91,14 @@ flask run
 This app uses Auth0 as Authentication provider.
 - LoginLink: https://fsw-final.us.auth0.com/authorize?audience=myapp&response_type=token&client_id=AEznY1DMZyVH60GCqSUKvdscz53ajIL8&redirect_uri=https://fsw-capstone.herokuapp.com/
 
-The Logininformation to update the JWT are as follows:
-- CastingDirector@email.com / CastingDirector@email.com 
-- CastingAssistant@test.com / G!!h+V++GPQ6MNn
-- ExecutiveProducer@test.com / ExecutiveProducer@test.com
+follow below account in [login page](https://fsw-final.us.auth0.com/authorize?audience=myapp&response_type=token&client_id=AEznY1DMZyVH60GCqSUKvdscz53ajIL8&redirect_uri=https://fsw-capstone.herokuapp.com/) to get JWT token:
+|account|password|
+|-------|--------|
+| CastingDirector@email.com | CastingDirector@email.com |
+|CastingAssistant@test.com|G!!h+V++GPQ6MNn|
+|ExecutiveProducer@test.com |ExecutiveProducer@test.com|
+
+Or find the token in `setup.sh`
 
 ## Permissions
 - post:actors: create a new actor
@@ -118,3 +132,30 @@ The Logininformation to update the JWT are as follows:
         - delete:actors
         - post:movies
         - delete:movies
+        
+# Unit Tests
+- All the tests were implemented in test_app.py:
+```
+dropdb casting_test
+source setup.sh
+python test_app.py
+```
+
+# Tech Stack
+This is the full tech stack for this application.
+
+## Operating system
+I wrote this application using macOS Catalina 10.15.7. It should work on most UNIX-based Operating Systems.
+All dependencies can be installed using either the `pip` package manager or the brew package manager.
+
+## Web server
+The web server technology I used is Flask.
+I am using Flask, Flask CORS for Cross-Origin Resource Sharing, and gunicorn for Heroku deployment.
+
+## Database Management
+I am using PostgreSQL 13.1 for the Database system. For integration with flask and python, I am using SQLAlchemy and Flask-SQLAlchemy.
+I am using Flask-Migrate to manage database versions. Then I'm using alembic for the actual versioning scheme. Finally, I'm using `psycopg2` to manage the database upgrades.
+
+## Script interpreter
+I am using Python 3.7 As well as the following python modules:
+- pycodestyle for codestyle

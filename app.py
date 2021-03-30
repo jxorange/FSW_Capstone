@@ -11,16 +11,13 @@ import babel
 from models import setup_db, Movie, Actor, db
 from auth import AuthError, requires_auth
 
+
 def create_app(test_config=None):
-# create and configure the app
+    # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-
     setup_db(app)
-
     migrate = Migrate(app, db)
-
     CORS(app)
-
 
     def format_datetime(value, format='medium'):
         date = dateutil.parser.parse(value)
@@ -32,6 +29,8 @@ def create_app(test_config=None):
 
         app.jinja_env.filters['datetime'] = format_datetime
 
+    # MOVIES
+    # Create an endpoint to handle GET requests for all available movies.
 
     @app.route("/movies", methods=['GET'])
     def get_movies():
@@ -50,6 +49,7 @@ def create_app(test_config=None):
             'total_movies': len(movies)
         })
 
+    # Create an endpoint to DELETE movie using a movie ID.
     @app.route("/movies/<int:movie_id>", methods=['DELETE'])
     @requires_auth('delete:movies')
     def delete_movie(payload, movie_id):
@@ -65,6 +65,8 @@ def create_app(test_config=None):
         except BaseException:
             abort(404)
 
+    # Create an endpoint to POST a new movie,
+    # which will require its title and release date.
     @app.route("/movies", methods=['POST'])
     @requires_auth('post:movies')
     def add_movie(payload):
@@ -85,6 +87,7 @@ def create_app(test_config=None):
         except AuthError:
             abort(422)
 
+    # edit existing movie
     @app.route("/movies/<int:movie_id>", methods=['PATCH'])
     @requires_auth('patch:movies')
     def edit_movie(payload, movie_id):
@@ -110,6 +113,8 @@ def create_app(test_config=None):
         except AuthError:
             abort(422)
 
+    # Create an endpoint to handle GET requests
+    # for all available actors.
     @app.route("/actors", methods=['GET'])
     def get_actors():
         actors = Actor.query.all()
@@ -127,6 +132,7 @@ def create_app(test_config=None):
             'total_actors': len(actors)
         })
 
+    # Create an endpoint to DELETE actor using a actor ID.
     @app.route("/actors/<int:actor_id>", methods=['DELETE'])
     @requires_auth('delete:actors')
     def delete_actor(payload, actor_id):
@@ -142,7 +148,8 @@ def create_app(test_config=None):
         except BaseException:
             abort(404)
 
-
+    # Create an endpoint to POST a new actor,
+    # which will require its name, age and gender.
     @app.route("/actors", methods=['POST'])
     @requires_auth('post:actors')
     def add_actor(payload):
@@ -164,7 +171,7 @@ def create_app(test_config=None):
         except AuthError:
             abort(422)
 
-
+    # edit existing actor
     @app.route("/actors/<int:actor_id>", methods=['PATCH'])
     @requires_auth('patch:actors')
     def edit_actor(payload, actor_id):
@@ -192,7 +199,7 @@ def create_app(test_config=None):
         except AuthError:
             abort(422)
 
-
+    # Error handlers for all expected errors
     @app.errorhandler(500)
     def server_error(error):
         return jsonify({
@@ -200,7 +207,6 @@ def create_app(test_config=None):
             "error": 500,
             "message": "Internal Server Error"
         }), 500
-
 
     @app.errorhandler(400)
     def bad_request(error):
@@ -210,7 +216,6 @@ def create_app(test_config=None):
             "message": "Bad request"
         }), 400
 
-
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({
@@ -218,7 +223,6 @@ def create_app(test_config=None):
             "error": 404,
             "message": "Not found"
         }), 404
-
 
     @app.errorhandler(405)
     def not_allowed(error):
@@ -228,7 +232,6 @@ def create_app(test_config=None):
             "message": "Method not allowed"
         }), 405
 
-
     @app.errorhandler(422)
     def unprocessable(error):
         return jsonify({
@@ -236,7 +239,6 @@ def create_app(test_config=None):
             "error": 422,
             "message": "Sent instructions are unprocessable"
         }), 422
-
 
     @app.errorhandler(AuthError)
     def invalid_claims(error):
@@ -247,5 +249,6 @@ def create_app(test_config=None):
         }), 401
 
     return app
+
 
 app = create_app()
